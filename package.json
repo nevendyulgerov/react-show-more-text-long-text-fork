@@ -1,7 +1,7 @@
 {
-  "name": "react-show-more-text",
-  "version": "1.5.0",
-  "description": "The text surrounded by the component will be truncated. Anything surrounded by the component could be evaluated as text. The component react-show-more-text/ShowMoreText is fork of react-show-more/ShowMore, applied improvements, works with React 16.x.x, added onClick event.",
+  "name": "react-show-more-text-long-text-fork",
+  "version": "0.0.1",
+  "description": "Fork of react-show-more-text that splitting long text into multiple lines.",
   "main": "lib/ShowMoreText.js",
   "files": [
     "lib"
@@ -35,7 +35,7 @@
     "show text",
     "hide text"
   ],
-  "author": "Zdravko Shishmanov <zdrsoft@gmail.com>",
+  "author": "Neven Dyulgerov",
   "license": "ISC",
   "peerDependencies": {
     "react": ">= 16.x.x"
