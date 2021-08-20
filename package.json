@@ -1,7 +1,7 @@
 {
   "name": "react-show-more-text-long-text-fork",
   "version": "0.0.1",
-  "description": "Fork of react-show-more-text that splitting long text into multiple lines.",
+  "description": "Fork of react-show-more-text that fixes splitting of long text into multiple lines.",
   "main": "lib/ShowMoreText.js",
   "files": [
     "lib"
@@ -11,7 +11,6 @@
     "compile:watch": "onchange \"src/**/*.js\" -- npm run compile --silent",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov",
     "lint": "eslint .",
-    "prepublish": "rm -rf ./lib && npm run compile",
     "preversion": "npm run test",
     "report-coverage": "npm run coverage | coveralls",
     "test": "./node_modules/.bin/jest",
@@ -20,9 +19,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:devzonetech/react-show-more-text.git"
+    "url": "git@github.com/nevendyulgerov/react-show-more-text-long-text-fork.git"
   },
-  "homepage": "https://github.com/devzonetech/react-show-more-text",
+  "homepage": "https://github.com/nevendyulgerov/react-show-more-text-long-text-fork",
   "keywords": [
     "react",
     "show more",
