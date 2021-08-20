@@ -1,6 +1,6 @@
 {
   "name": "react-show-more-text-long-text-fork",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fork of react-show-more-text that fixes splitting of long text into multiple lines.",
   "main": "lib/ShowMoreText.js",
   "files": [
