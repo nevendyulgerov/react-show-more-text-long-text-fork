@@ -7,15 +7,7 @@
     "lib"
   ],
   "scripts": {
-    "compile": "./node_modules/.bin/babel src/ShowMoreText.js src/Truncate.js --out-dir lib",
-    "compile:watch": "onchange \"src/**/*.js\" -- npm run compile --silent",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov",
-    "lint": "eslint .",
-    "preversion": "npm run test",
-    "report-coverage": "npm run coverage | coveralls",
-    "test": "./node_modules/.bin/jest",
-    "test:watch": "./node_modules/.bin/jest --watch",
-    "travis": "npm run compile && npm run test"
+    "compile": "./node_modules/.bin/babel src/ShowMoreText.js src/Truncate.js --out-dir lib"
   },
   "repository": {
     "type": "git",
