@@ -242,7 +242,23 @@ export default class Truncate extends React.Component {
 
         const lines = [];
         const text = innerText(elements.text);
-        const textLines = text.split('\n').map(line => line.split(' '));
+        let isTextWithoutSpaces = false;
+        let textLines = text.split('\n').map(line => line.split(' '));
+
+        if (textLines.length === 1 && textLines[0].length === 1 && measureWidth(textLines[0]) > targetWidth) {
+            isTextWithoutSpaces = true;
+            const delimiter = Math.floor(measureWidth(textLines[0]) / targetWidth);
+            const maxChars = Math.floor(text.length / delimiter);
+            textLines = [[]];
+
+            for (let l = 0; l < delimiter; l++) {
+                const start = Math.floor(l * maxChars);
+                const end = start + maxChars;
+                const textPart = text.substring(start, end);
+                textLines[0].push(textPart);
+            }
+        }
+
         let didTruncate = true;
         const ellipsisWidth = this.ellipsisWidth(this.elements.ellipsis);
 
@@ -312,34 +328,40 @@ export default class Truncate extends React.Component {
 
                 resultLine = <span>{lastLineText}{ellipsis}</span>;
             } else {
-                // Binary search determining when the line breaks
-                let lower = 0;
-                let upper = textWords.length - 1;
+                if (isTextWithoutSpaces) {
+                    resultLine = textWords[line - 1];
+                    resultLine = restoreReplacedLinks(resultLine);
+                } else {
+                    // Binary search determining when the line breaks
+                    let lower = 0;
+                    let upper = textWords.length - 1;
 
-                while (lower <= upper) {
-                    const middle = Math.floor((lower + upper) / 2);
+                    while (lower <= upper) {
+                        const middle = Math.floor((lower + upper) / 2);
 
-                    const testLine = textWords.slice(0, middle + 1).join(' ');
+                        const testLine = textWords.slice(0, middle + 1).join(' ');
 
-                    if (measureWidth(testLine) <= targetWidth) {
-                        lower = middle + 1;
-                    } else {
-                        upper = middle - 1;
+                        if (measureWidth(testLine) <= targetWidth) {
+                            lower = middle + 1;
+                        } else {
+                            upper = middle - 1;
+                        }
                     }
+
+                    // The first word of this line is too long to fit it
+                    if (lower === 0) {
+                        // Jump to processing of last line
+                        line = numLines - 1;
+                        continue;
+                    }
+
+                    resultLine = textWords.slice(0, lower).join(' ');
+
+                    resultLine = restoreReplacedLinks(resultLine);
+
+                    textLines[0].splice(0, lower);
+
                 }
-
-                // The first word of this line is too long to fit it
-                if (lower === 0) {
-                    // Jump to processing of last line
-                    line = numLines - 1;
-                    continue;
-                }
-
-                resultLine = textWords.slice(0, lower).join(' ');
-
-                resultLine = restoreReplacedLinks(resultLine);
-
-                textLines[0].splice(0, lower);
             }
 
             lines.push(resultLine);
